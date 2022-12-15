@@ -1,0 +1,32 @@
+{
+  "name": "dominium",
+  "version": "1.0.0",
+  "description": "A habit tracker and behaviour adjustment system designed for totally normal, non-unusual purposes.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JSKitty/Dominium.git"
+  },
+  "author": "JSKitty, 11Tuvork28",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JSKitty/Dominium/issues"
+  },
+  "homepage": "https://github.com/JSKitty/Dominium#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.15",
+    "@types/node": "^18.11.15",
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20",
+    "typescript": "^4.9.4"
+  }
+}
