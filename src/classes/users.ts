@@ -8,21 +8,21 @@ export class Session {
      * @param token - Device-specific auth token
      * @param dom - Dominant if `true`, sub if `false`
      */
-    constructor(token: String, dom: Boolean) {
+    constructor(token: string, dom: boolean) {
         this.token = token;
         this.dom = dom;
     }
 
     /** Device-specific auth token */
-    token: String;
+    token: string;
 
     /** Dominant if `true`, sub if `false` */
-    dom: Boolean;
+    dom: boolean;
 
     /** Generate a random auth token 
      * @param dom - Dominant if `true`, sub if `false`
     */
-    static generate(dom: Boolean) {
+    static generate(dom: boolean) {
         return new Session(Math.round(Math.random() * 1000).toString(), dom);
     }
 }
@@ -35,19 +35,19 @@ export class Couple {
      * @param id - Unique account ID
      * @param accessKey - Unique private access key for the account owners, randomly generated if left undefined
      */
-    constructor(id: Number, accessKey: String = Math.round(Math.random() * 1000).toString()) {
+    constructor(id: number, accessKey: string = Math.round(Math.random() * 1000).toString()) {
         this.id = id;
         this.accessKey = accessKey;
     }
     
     /** Unique account ID */
-    id: Number;
+    id: number;
 
     /** Unique private access key for the account owners */
-    accessKey: String;
+    accessKey: string;
 
     /** Pin for the dominant */
-    domPin: String = "1234";
+    domPin: string = "1234";
 
     /** Account sessions */
     sessions: Array<Session> = [];
@@ -57,7 +57,7 @@ export class Couple {
      * @param token - Device-specific auth token
      * @param dom - Dominant if `true`, sub if `false`
      */
-    addSession(token: String, dom: Boolean) {
+    addSession(token: string, dom: boolean) {
         const session = new Session(token, dom);
         this.sessions.push(session);
         console.log('[account ' + this.id + '] The ' + (dom ? 'dom' : 'sub') + ' logged in with a new session, now ' + this.sessions.length + ' sessions');
@@ -68,7 +68,7 @@ export class Couple {
      * Create an account session
      * @param dom - Dominant if `true`, sub if `false`
      */
-    createSession(dom: Boolean) {
+    createSession(dom: boolean) {
         const session = Session.generate(dom);
         this.sessions.push(session);
         console.log('[account ' + this.id + '] The ' + (dom ? 'dom' : 'sub') + ' logged in with a new session, now ' + this.sessions.length + ' sessions');
@@ -76,10 +76,18 @@ export class Couple {
     }
 
     /**
+     * 
+     * @param token - Device-specific auth token
+     */
+    findSession(token: string) {
+        return this.sessions.find(a => a.token === token);
+    }
+
+    /**
      * Remove a session from the account
      * @param token - Device-specific auth token
      */
-    removeSession(token: String) {
+    removeSession(token: string) {
         const index = this.sessions.findIndex(a => a.token === token);
         if (index === -1) return true;
         const session = this.sessions.splice(index, 1)[0];
@@ -88,11 +96,44 @@ export class Couple {
     }
 
     /** The name of the submissive's points */
-    pointsName: String = "Points";
+    pointsName: string = "Stars";
 
     /** The submissive's points score */
-    points: Number = 0;
+    points: number = 0;
 
     /** All habits shared by this couple */
     habits: Array<Habit> = [];
+
+    /**
+     * Create a new habit task for this couple
+     * @param name - Name of the habit task
+     * @param description - Description of the habit task
+     * @param points - Points reward for completing
+     */
+    createTask(name: string, description: string, points: number) {
+        const task = new Habit(name, description, points, false);
+        this.habits.push(task);
+        console.log('[account ' + this.id + '] Created a new habit task, now ' + this.habits.length + ' tasks');
+        return task;
+    }
+
+    /**
+     * Remove a habit task for this couple
+     * @param name - Name of the habit task
+     */
+     removeTask(name: string) {
+        const index = this.habits.findIndex(a => a.name === name);
+        if (index === -1) return true;
+        this.habits.splice(index, 1)[0];
+        console.log('[account ' + this.id + '] Removed a habit task, now ' + this.habits.length + ' tasks');
+        return true;
+    }
+
+    /**
+     * Find a habit task for this couple
+     * @param name - Name of the habit task
+     */
+    findTask(name: string) {
+        return this.habits.find(a => a.name === name);
+    }
 }

@@ -7,25 +7,24 @@ export class Habit {
     /**
      * @param name - Name of the habit
      * @param description - Description of the habit
-     * @param couple - Couple that the habit belongs to
+     * @param points - The points reward for completing
      * @param complete - Completion status of the habit
      */
-    constructor(name: String, description: String, couple: Couple, complete: Boolean) {
+    constructor(name: string, description: string, points: number, complete: boolean) {
         this.name = name;
         this.description = description;
-        this.couple = couple;
+        this.points = points;
         this.complete = complete;
     }
 
     /** Name of the habit */
-    name: String;
+    name: string;
     
     /** Description of the habit */
-    description: String;
+    description: string;
 
-    /** Couple that the habit belongs to */
-    couple: Couple;
+    points: number;
     
     /** Completion status of the habit */
-    complete: Boolean;
+    complete: boolean;
 }
