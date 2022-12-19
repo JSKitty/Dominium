@@ -76,7 +76,7 @@ export class Couple {
     }
 
     /**
-     * 
+     * Find an account session
      * @param token - Device-specific auth token
      */
     findSession(token: string) {
