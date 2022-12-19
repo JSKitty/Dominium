@@ -15,7 +15,7 @@ class AccountSessionPair {
 }
 
 /**
- * 
+ * Get a couple's account via a session token
  * @param token - Device-specific auth token
  */
 export function getAccountBySession(token: string) {
